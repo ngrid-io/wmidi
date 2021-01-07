@@ -1,4 +1,7 @@
-use crate::prelude::*;
+use crate::{
+    prelude::*,
+    MIDIEndpoint,
+};
 
 pub struct MIDIPortMapIterator<'a, T: MIDIPort> {
     inner: std::collections::hash_map::Iter<'a, u32, T>,
@@ -17,7 +20,13 @@ pub struct MIDIPortMap<T: MIDIPort> {
 
 impl<T: MIDIPort> MIDIPortMap<T> {
     pub fn iter(&self) -> MIDIPortMapIterator<T> {
-        MIDIPortMapIterator { inner: self.inner.iter() }
+        MIDIPortMapIterator {
+            inner: self.inner.iter(),
+        }
+    }
+
+    fn port_for(&self, endpoint: &MIDIEndpoint) -> T {
+        todo!()
     }
 }
 
@@ -31,5 +40,12 @@ impl MIDIPortMap<MIDIInput> {
 impl MIDIPortMap<MIDIOutput> {
     pub fn new() -> Self {
         todo!()
+    }
+}
+
+impl<T: MIDIPort> std::ops::Index<&u32> for MIDIPortMap<T> {
+    type Output = T;
+    fn index(&self, index: &u32) -> &Self::Output {
+        &self.inner[index]
     }
 }

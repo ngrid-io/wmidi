@@ -1,6 +1,6 @@
 use crate::prelude::*;
 
-pub struct MIDIEndpoint {
+pub(crate) struct MIDIEndpoint {
     inner: coremidi::Endpoint,
 }
 

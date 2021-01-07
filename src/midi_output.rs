@@ -1,5 +1,10 @@
-use crate::prelude::*;
-pub struct MIDIOutput {}
+use crate::{
+    prelude::*,
+    MIDIEndpoint,
+};
+pub struct MIDIOutput {
+    inner: MIDIEndpoint,
+}
 
 impl PartialEq for MIDIOutput {
     fn eq(&self, other: &Self) -> bool {

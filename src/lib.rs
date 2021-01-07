@@ -1,4 +1,4 @@
-mod prelude;
+pub mod prelude;
 
 mod midi_client;
 pub use midi_client::*;

@@ -1,4 +1,7 @@
-use crate::prelude::*;
+use crate::{
+    prelude::*,
+    MIDIEndpoint,
+};
 pub struct MIDIInput {
     inner: MIDIEndpoint,
 }
