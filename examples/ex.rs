@@ -6,4 +6,8 @@ fn main() {
     for (_, p) in access.inputs().iter() {
         println!("input: {:?}", p);
     }
+
+    for (_, p) in access.outputs().iter() {
+        println!("outputs: {:?}", p);
+    }
 }

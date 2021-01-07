@@ -22,7 +22,12 @@ impl std::hash::Hash for MIDIInput {
 
 impl std::fmt::Debug for MIDIInput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "MIDIInput {{{:?} {:?}}}", self.manufacturer(), self.name())
+        write!(
+            f,
+            "MIDIInput {{{:?} {:?}}}",
+            self.manufacturer(),
+            self.name()
+        )
     }
 }
 
@@ -72,6 +77,8 @@ impl MIDIPort for MIDIInput {
     /// open the port, is called implicitly when MIDIInput's onMIDIMessage is set or MIDIOutputs' send is called
     fn open(&mut self) {
         todo!()
+        // self.inner.
+        // todo!()
     }
 
     /// closes the port

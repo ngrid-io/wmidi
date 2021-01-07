@@ -1,11 +1,12 @@
+#[derive(Clone)]
 pub(crate) struct MIDIClient {
-    inner: coremidi::Client,
+    inner: std::rc::Rc<coremidi::Client>,
 }
 
 impl MIDIClient {
     pub fn new(name: &str) -> Self {
         Self {
-            inner: coremidi::Client::new(name).unwrap(),
+            inner: std::rc::Rc::new(coremidi::Client::new(name).unwrap()),
         }
     }
 
@@ -14,7 +15,15 @@ impl MIDIClient {
         F: FnMut(&coremidi::Notification) + Send + 'static,
     {
         Self {
-            inner: coremidi::Client::new_with_notifications(name, callback).unwrap(),
+            inner: std::rc::Rc::new(coremidi::Client::new_with_notifications(name, callback).unwrap()),
         }
+    }
+
+    pub(crate) fn open_input<F>(&mut self, source: coremidi::Source, callback: F)
+    where
+        F: FnMut(&coremidi::PacketList) + Send + 'static,
+    {
+        let z = self.inner.input_port("", callback);
+        todo!()
     }
 }
