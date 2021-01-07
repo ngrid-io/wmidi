@@ -1,13 +1,13 @@
 use crate::prelude::*;
 pub struct MIDIInput {
-    inner: coremidi::Endpoint,
+    inner: MIDIEndpoint
 }
 
 impl MIDIInput {}
 
 impl MIDIPort for MIDIInput {
-    fn id(&self) -> i32 {
-        todo!()
+    fn id(&self) -> u32 {
+        self.inner.id()
         // coremidi::
         // self.inner.
     }

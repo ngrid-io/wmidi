@@ -2,6 +2,9 @@ pub enum MIDIPortKind {
     Input,
     Output,
 }
+
+// impl From<coremidi::
+
 pub enum MIDIPortDeviceState {
     Connected,
     Disconnected,
@@ -13,7 +16,7 @@ pub enum MIDIPortConnectionState {
 }
 
 pub trait MIDIPort {
-    fn id(&self) -> i32;
+    fn id(&self) -> u32;
     fn manufacturer(&self) -> &str;
 
     fn name(&self) -> &str;

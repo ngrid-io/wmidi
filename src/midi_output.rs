@@ -2,7 +2,7 @@ use crate::prelude::*;
 pub struct MIDIOutput {}
 
 impl MIDIPort for MIDIOutput {
-    fn id(&self) -> i32 {
+    fn id(&self) -> u32 {
         todo!()
     }
     fn manufacturer(&self) -> &str {
