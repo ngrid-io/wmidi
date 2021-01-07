@@ -42,7 +42,7 @@ impl MIDIPort for MIDIInput {
     }
 
     fn manufacturer(&self) -> String {
-        todo!()
+        self.endpoint().manufacturer()
     }
 
     fn name(&self) -> String {
@@ -51,7 +51,7 @@ impl MIDIPort for MIDIInput {
 
     /// .input (for MIDIInput) or .output (for MIDIOutput)
     fn kind(&self) -> MIDIPortKind {
-        todo!()
+        MIDIPortKind::Input
     }
 
     fn version(&self) -> u32 {

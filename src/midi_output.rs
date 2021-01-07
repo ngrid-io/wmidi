@@ -3,7 +3,6 @@ use crate::{
     MIDIEndpoint,
 };
 pub struct MIDIOutput {
-    // inner: MIDIEndpoint,
     inner: coremidi::Destination,
 }
 
@@ -43,7 +42,7 @@ impl MIDIPort for MIDIOutput {
     }
 
     fn manufacturer(&self) -> String {
-        todo!()
+        self.endpoint().manufacturer()
     }
 
     fn name(&self) -> String {
@@ -52,7 +51,7 @@ impl MIDIPort for MIDIOutput {
 
     /// .input (for MIDIInput) or .output (for MIDIOutput)
     fn kind(&self) -> MIDIPortKind {
-        todo!()
+        MIDIPortKind::Output
     }
 
     fn version(&self) -> u32 {
