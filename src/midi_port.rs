@@ -1,3 +1,4 @@
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum MIDIPortKind {
     Input,
     Output,
@@ -5,11 +6,13 @@ pub enum MIDIPortKind {
 
 // impl From<coremidi::
 
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum MIDIPortDeviceState {
     Connected,
     Disconnected,
 }
 
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum MIDIPortConnectionState {
     Open,
     Closed,

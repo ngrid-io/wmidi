@@ -6,6 +6,13 @@ pub struct MIDIOutput {
     inner: MIDIEndpoint,
 }
 
+impl MIDIOutput {
+    pub(crate) fn new(output: coremidi::Destination) -> Self {
+        // Self { output }
+        todo!()
+    }
+}
+
 impl PartialEq for MIDIOutput {
     fn eq(&self, other: &Self) -> bool {
         self.id() == other.id()

@@ -20,7 +20,14 @@ impl std::hash::Hash for MIDIInput {
     }
 }
 
-impl MIDIInput {}
+impl MIDIInput {
+    pub(crate) fn new(source: coremidi::Source) -> Self {
+        todo!()
+        // Self {
+        //     inner: MIDIEndpoint { inner: *source }
+        // }
+    }
+}
 
 impl MIDIPort for MIDIInput {
     fn id(&self) -> u32 {

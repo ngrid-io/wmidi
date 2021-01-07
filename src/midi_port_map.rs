@@ -34,14 +34,27 @@ impl<T: MIDIPort> MIDIPortMap<T> {
 
 impl MIDIPortMap<MIDIInput> {
     pub(crate) fn new(client: &MIDIClient) -> Self {
-        // use std::collections::hash_map::Iter;
-        todo!()
+        let mut inner = std::collections::HashMap::new();
+        for e in coremidi::Sources {
+            let input = MIDIInput::new(e);
+            inner.insert(0, input);
+        }
+        Self {
+            inner
+        }
     }
 }
 
 impl MIDIPortMap<MIDIOutput> {
     pub(crate) fn new(client: &MIDIClient) -> Self {
-        todo!()
+        let mut inner = std::collections::HashMap::new();
+        for e in coremidi::Destinations {
+            let output = MIDIOutput::new(e);
+            inner.insert(0, output);
+        }
+        Self {
+            inner
+        }
     }
 }
 
