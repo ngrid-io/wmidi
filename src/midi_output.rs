@@ -4,13 +4,16 @@ use crate::{
 };
 pub struct MIDIOutput {
     // inner: MIDIEndpoint,
-    inner: coremidi::Destination
+    inner: coremidi::Destination,
 }
 
 impl MIDIOutput {
-
     pub(crate) fn new(inner: coremidi::Destination) -> Self {
         Self { inner }
+    }
+
+    fn endpoint<'a>(&'a self) -> MIDIEndpoint<'a> {
+        self.inner.endpoint().into()
     }
 }
 
@@ -28,17 +31,23 @@ impl std::hash::Hash for MIDIOutput {
     }
 }
 
+impl std::fmt::Debug for MIDIOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "MIDIOutput {{{:?}}}", self.name())
+    }
+}
+
 impl MIDIPort for MIDIOutput {
     fn id(&self) -> u32 {
+        self.endpoint().id()
+    }
+
+    fn manufacturer(&self) -> String {
         todo!()
     }
 
-    fn manufacturer(&self) -> &str {
-        todo!()
-    }
-
-    fn name(&self) -> &str {
-        todo!()
+    fn name(&self) -> String {
+        self.endpoint().name()
     }
 
     /// .input (for MIDIInput) or .output (for MIDIOutput)

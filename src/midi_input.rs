@@ -3,7 +3,7 @@ use crate::{
     MIDIEndpoint,
 };
 pub struct MIDIInput {
-    inner: coremidi::Destination,
+    inner: coremidi::Source,
 }
 
 impl PartialEq for MIDIInput {
@@ -20,12 +20,15 @@ impl std::hash::Hash for MIDIInput {
     }
 }
 
+impl std::fmt::Debug for MIDIInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "MIDIInput {{{:?}}}", self.name())
+    }
+}
+
 impl MIDIInput {
-    pub(crate) fn new(source: coremidi::Source) -> Self {
-        todo!()
-        // Self {
-        //     inner: MIDIEndpoint { inner: *source }
-        // }
+    pub(crate) fn new(inner: coremidi::Source) -> Self {
+        Self { inner }
     }
 
     fn endpoint<'a>(&'a self) -> MIDIEndpoint<'a> {
@@ -38,12 +41,12 @@ impl MIDIPort for MIDIInput {
         self.endpoint().id()
     }
 
-    fn manufacturer(&self) -> &str {
+    fn manufacturer(&self) -> String {
         todo!()
     }
 
-    fn name(&self) -> &str {
-        todo!()
+    fn name(&self) -> String {
+        self.endpoint().name()
     }
 
     /// .input (for MIDIInput) or .output (for MIDIOutput)

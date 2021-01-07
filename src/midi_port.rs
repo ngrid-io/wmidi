@@ -20,9 +20,9 @@ pub enum MIDIPortConnectionState {
 
 pub trait MIDIPort: Eq + std::hash::Hash {
     fn id(&self) -> u32;
-    fn manufacturer(&self) -> &str;
+    fn manufacturer(&self) -> String;
 
-    fn name(&self) -> &str;
+    fn name(&self) -> String;
 
     /// .input (for MIDIInput) or .output (for MIDIOutput)
     fn kind(&self) -> MIDIPortKind;

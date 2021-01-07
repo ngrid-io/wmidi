@@ -37,11 +37,9 @@ impl MIDIPortMap<MIDIInput> {
         let mut inner = std::collections::HashMap::new();
         for e in coremidi::Sources {
             let input = MIDIInput::new(e);
-            inner.insert(0, input);
+            inner.insert(input.id(), input);
         }
-        Self {
-            inner
-        }
+        Self { inner }
     }
 }
 
@@ -50,11 +48,9 @@ impl MIDIPortMap<MIDIOutput> {
         let mut inner = std::collections::HashMap::new();
         for e in coremidi::Destinations {
             let output = MIDIOutput::new(e);
-            inner.insert(0, output);
+            inner.insert(output.id(), output);
         }
-        Self {
-            inner
-        }
+        Self { inner }
     }
 }
 

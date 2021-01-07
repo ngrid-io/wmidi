@@ -15,7 +15,7 @@ pub struct MIDIAccess {
 }
 
 impl MIDIAccess {
-    fn new(name: &str) -> Self {
+    pub fn new(name: &str) -> Self {
         let client = MIDIClient::new(name);
         // let (tx, rx) = std::sync::mpsc::channel();
         // // let client = MIDIClient::new_with_notification(name, move |x| {

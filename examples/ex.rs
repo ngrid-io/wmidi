@@ -1,5 +1,9 @@
 use wmidi::prelude::*;
 
 fn main() {
-    println!("hello");
+    let access = MIDIAccess::new("wmidi");
+
+    for (_, p) in access.inputs().iter() {
+        println!("input: {:?}", p);
+    }
 }

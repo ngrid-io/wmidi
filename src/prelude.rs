@@ -1,4 +1,5 @@
 pub use crate::{
+    MIDIAccess,
     MIDIInput,
     MIDIOutput,
     MIDIPort,
