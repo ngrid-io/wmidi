@@ -4,7 +4,7 @@ mod midi_access;
 pub use midi_access::*;
 
 mod midi_client;
-pub use midi_client::*;
+use midi_client::*;
 
 mod midi_endpoint;
 use midi_endpoint::*;

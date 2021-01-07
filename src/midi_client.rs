@@ -1,4 +1,4 @@
-pub struct MIDIClient {
+pub(crate) struct MIDIClient {
     inner: coremidi::Client,
 }
 
