@@ -1,10 +1,16 @@
 use crate::prelude::*;
 
-pub(crate) struct MIDIEndpoint {
-    inner: coremidi::Endpoint,
+pub(crate) struct MIDIEndpoint<'a> {
+    inner: &'a coremidi::Endpoint,
 }
 
-impl MIDIEndpoint {
+impl<'a> From<&'a coremidi::Endpoint> for MIDIEndpoint<'a> {
+    fn from(inner: &'a coremidi::Endpoint) -> Self {
+        Self { inner }
+    }
+}
+
+impl<'a> MIDIEndpoint<'a> {
     pub fn id(&self) -> u32 {
         // self.inner.set_property_integer(coremidi::kMIDIPropertyUniqueID, value);
         // self.inner.get_property_integer(coremidi::kMIDIPropertyUniqueID)

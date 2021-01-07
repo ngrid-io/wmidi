@@ -3,13 +3,14 @@ use crate::{
     MIDIEndpoint,
 };
 pub struct MIDIOutput {
-    inner: MIDIEndpoint,
+    // inner: MIDIEndpoint,
+    inner: coremidi::Destination
 }
 
 impl MIDIOutput {
-    pub(crate) fn new(output: coremidi::Destination) -> Self {
-        // Self { output }
-        todo!()
+
+    pub(crate) fn new(inner: coremidi::Destination) -> Self {
+        Self { inner }
     }
 }
 

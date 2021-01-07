@@ -3,7 +3,7 @@ use crate::{
     MIDIEndpoint,
 };
 pub struct MIDIInput {
-    inner: MIDIEndpoint,
+    inner: coremidi::Destination,
 }
 
 impl PartialEq for MIDIInput {
@@ -27,14 +27,17 @@ impl MIDIInput {
         //     inner: MIDIEndpoint { inner: *source }
         // }
     }
+
+    fn endpoint<'a>(&'a self) -> MIDIEndpoint<'a> {
+        self.inner.endpoint().into()
+    }
 }
 
 impl MIDIPort for MIDIInput {
     fn id(&self) -> u32 {
-        self.inner.id()
-        // coremidi::
-        // self.inner.
+        self.endpoint().id()
     }
+
     fn manufacturer(&self) -> &str {
         todo!()
     }
