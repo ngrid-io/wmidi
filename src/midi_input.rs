@@ -5,6 +5,7 @@ use crate::{
 pub struct MIDIInput {
     inner: MIDIEndpoint,
 }
+
 impl PartialEq for MIDIInput {
     fn eq(&self, other: &Self) -> bool {
         self.id() == other.id()
