@@ -32,7 +32,7 @@ impl std::hash::Hash for MIDIOutput {
 
 impl std::fmt::Debug for MIDIOutput {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "MIDIOutput {{{:?}}}", self.name())
+        write!(f, "MIDIOutput {{{:?} {:?}}}", self.manufacturer(), self.name())
     }
 }
 
