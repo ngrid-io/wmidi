@@ -1,6 +1,19 @@
 use crate::prelude::*;
 pub struct MIDIInput {
-    inner: MIDIEndpoint
+    inner: MIDIEndpoint,
+}
+impl PartialEq for MIDIInput {
+    fn eq(&self, other: &Self) -> bool {
+        self.id() == other.id()
+    }
+}
+
+impl Eq for MIDIInput {}
+
+impl std::hash::Hash for MIDIInput {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.id().hash(state)
+    }
 }
 
 impl MIDIInput {}

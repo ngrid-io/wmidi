@@ -1,10 +1,25 @@
 use crate::prelude::*;
 pub struct MIDIOutput {}
 
+impl PartialEq for MIDIOutput {
+    fn eq(&self, other: &Self) -> bool {
+        self.id() == other.id()
+    }
+}
+
+impl Eq for MIDIOutput {}
+
+impl std::hash::Hash for MIDIOutput {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.id().hash(state)
+    }
+}
+
 impl MIDIPort for MIDIOutput {
     fn id(&self) -> u32 {
         todo!()
     }
+
     fn manufacturer(&self) -> &str {
         todo!()
     }
