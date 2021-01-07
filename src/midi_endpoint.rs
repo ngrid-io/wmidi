@@ -1,22 +1,23 @@
 use crate::prelude::*;
-pub struct MIDIInput {
+
+pub struct MIDIEndpoint {
     inner: coremidi::Endpoint,
 }
 
-impl MIDIInput {}
-
-impl MIDIPort for MIDIInput {
-    fn id(&self) -> i32 {
-        todo!()
-        // coremidi::
-        // self.inner.
-    }
-    fn manufacturer(&self) -> &str {
-        todo!()
+impl MIDIEndpoint {
+    fn id(&self) -> u32 {
+        // self.inner.set_property_integer(coremidi::kMIDIPropertyUniqueID, value);
+        // self.inner.get_property_integer(coremidi::kMIDIPropertyUniqueID)
+        self.inner.unique_id().unwrap()
     }
 
-    fn name(&self) -> &str {
-        todo!()
+    fn manufacturer(&self) -> String {
+        // self.inner.as_ref().set_property_string(name, value)
+        self.inner.manufacturer().unwrap()
+    }
+
+    fn name(&self) -> String {
+        self.inner.name().unwrap()
     }
 
     /// .input (for MIDIInput) or .output (for MIDIOutput)
@@ -26,6 +27,7 @@ impl MIDIPort for MIDIInput {
 
     fn version(&self) -> u32 {
         todo!()
+        // self.inner.ve
     }
 
     /// .connected | .disconnected,

@@ -6,6 +6,9 @@ pub use midi_client::*;
 mod midi_input;
 pub use midi_input::*;
 
+mod midi_endpoint;
+pub use midi_endpoint::*;
+
 mod midi_output;
 pub use midi_output::*;
 

@@ -1,5 +1,6 @@
 pub use crate::{
     MIDIClient,
+    MIDIEndpoint,
     MIDIInput,
     MIDIOutput,
     MIDIPort,
