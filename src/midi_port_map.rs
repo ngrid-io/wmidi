@@ -26,8 +26,9 @@ impl<T: MIDIPort> MIDIPortMap<T> {
         }
     }
 
-    fn port_for(&self, endpoint: &MIDIEndpoint) -> T {
-        todo!()
+    fn port_for(&self, endpoint: &MIDIEndpoint) -> Option<&T> {
+        let id = endpoint.id();
+        self.iter().find(|x| x.1.id() == id).map(|x| x.1)
     }
 }
 

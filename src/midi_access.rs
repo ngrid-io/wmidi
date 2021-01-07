@@ -29,6 +29,7 @@ impl MIDIAccess {
             client,
         }
     }
+
     pub fn inputs(&self) -> &MIDIPortMap<MIDIInput> {
         &self.inputs
     }
@@ -37,6 +38,9 @@ impl MIDIAccess {
         &self.outputs
     }
 
+    pub fn restart(&self) {
+        coremidi::restart();
+    }
     // fn insert(&self,)
 
     // fn notification(&mut self, notification: coremidi::Notification) {
