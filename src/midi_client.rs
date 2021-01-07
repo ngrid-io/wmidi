@@ -3,9 +3,9 @@ pub(crate) struct MIDIClient {
 }
 
 impl MIDIClient {
-    pub fn new() -> Self {
+    pub fn new(name: &str) -> Self {
         Self {
-            inner: coremidi::Client::new("fdsa").unwrap(),
+            inner: coremidi::Client::new(name).unwrap(),
         }
     }
 

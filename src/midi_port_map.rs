@@ -1,5 +1,6 @@
 use crate::{
     prelude::*,
+    MIDIClient,
     MIDIEndpoint,
 };
 
@@ -31,14 +32,14 @@ impl<T: MIDIPort> MIDIPortMap<T> {
 }
 
 impl MIDIPortMap<MIDIInput> {
-    pub fn new() -> Self {
+    pub(crate) fn new(client: &MIDIClient) -> Self {
         // use std::collections::hash_map::Iter;
         todo!()
     }
 }
 
 impl MIDIPortMap<MIDIOutput> {
-    pub fn new() -> Self {
+    pub(crate) fn new(client: &MIDIClient) -> Self {
         todo!()
     }
 }
