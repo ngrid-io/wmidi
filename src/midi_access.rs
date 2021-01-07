@@ -3,7 +3,6 @@ use crate::{
     MIDIClient,
 };
 
-
 pub struct MIDIAccess {
     client: MIDIClient,
     inputs: MIDIPortMap<MIDIInput>,
