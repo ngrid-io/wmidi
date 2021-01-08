@@ -9,7 +9,7 @@ pub struct MIDIOutput {
     inner: coremidi::Destination,
     port: Option<coremidi::OutputPort>,
     client: MIDIClient,
-    state_change: Box<dyn StateChangeObserver>,
+    state_change: Option<Box<dyn StateChangeObserver>>,
 }
 
 impl MIDIOutput {
@@ -93,6 +93,13 @@ impl MIDIPort for MIDIOutput {
         }
         self.endpoint().flush();
         self.port = None;
-        self.state_change.output_state_changed(self);
+
+        if let Some(f) = self.state_change.as_ref() {
+            f.output_state_changed(&self);
+        }
+    }
+
+    fn set_on_state_change(&mut self, on_state_change: Option<Box<dyn StateChangeObserver>>) {
+        self.state_change = on_state_change;
     }
 }

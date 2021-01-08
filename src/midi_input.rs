@@ -16,7 +16,7 @@ pub struct MIDIInput {
     inner: coremidi::Source,
     port: Option<coremidi::InputPort>,
     client: MIDIClient,
-    state_change: Box<dyn StateChangeObserver>,
+    state_change: Option<Box<dyn StateChangeObserver>>,
 }
 
 impl PartialEq for MIDIInput {
@@ -106,7 +106,9 @@ impl MIDIPort for MIDIInput {
             let _ = port.disconnect_source(&self.inner);
         }
         self.port = None;
-        self.state_change.input_state_changed(self);
+        if let Some(f) = self.state_change.as_ref() {
+            f.input_state_changed(&self);
+        }
         // self.on_state_change(self);
 
         //     guard connection != .closed else { return }
@@ -122,5 +124,9 @@ impl MIDIPort for MIDIInput {
         //     onStateChange?(self)
         //     onStateChange = nil
         // }
+    }
+
+    fn set_on_state_change(&mut self, on_state_change: Option<Box<dyn StateChangeObserver>>) {
+        self.state_change = on_state_change;
     }
 }

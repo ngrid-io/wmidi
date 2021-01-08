@@ -1,3 +1,5 @@
+use crate::StateChangeObserver;
+
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum MIDIPortKind {
     Input,
@@ -41,4 +43,6 @@ pub trait MIDIPort: Eq + std::hash::Hash {
 
     /// closes the port
     fn close(&mut self);
+
+    fn set_on_state_change(&mut self, on_state_change: Option<Box<dyn StateChangeObserver>>);
 }
