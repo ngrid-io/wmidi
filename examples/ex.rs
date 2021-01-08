@@ -10,7 +10,7 @@ impl MIDIInputObserver for MIDIReceiver {
     }
 }
 fn main() {
-    let access = MIDIAccess::new("wmidi");
+    let mut access = MIDIAccess::new("wmidi");
 
     // for (_, p) in access.inputs().iter() {
     //     println!("input: {:?}", p);
@@ -22,9 +22,12 @@ fn main() {
 
     // let noteOn: [UInt8] = [0x90, 0x40, 0x7f]
     // let noteOff: [UInt8] = [0x80, 0x40, 0]
-    let input = access.inputs().prompt().unwrap();
-    // println!("selected {:?}", z);
-    let output = access.output_for(input);
+    let observer = Box::new(MIDIReceiver {});
+    {
+        let input = access.inputs_mut().prompt_mut().unwrap();
+        input.set_input_observer(observer);
+    }
 
-    // input.set_input_observer(Box::new(MIDIReceiver {}));
+    // println!("selected {:?}", z);
+    // let output = access.output_for(input).unwrap();
 }

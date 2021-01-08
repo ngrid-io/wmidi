@@ -85,6 +85,45 @@ impl<T: MIDIPort> MIDIPortMap<T> {
             }
         }
     }
+
+    pub fn prompt_mut(&mut self) -> Option<&mut T> {
+        if self.is_empty() {
+            return None;
+        }
+
+        println!("Select {:?} ", std::any::type_name::<T>());
+
+        let id = {
+            let ports: Vec<_> = self.iter().collect();
+            for (i, (k, v)) in ports.iter().enumerate() {
+                println!("#{:?} {:?}", i, v);
+            }
+
+            let input = get_line();
+            let index = input.parse::<usize>();
+            let index = match index {
+                Ok(index) => {
+                    if (0..ports.len()).contains(&index) {
+                        Some(ports[index].0)
+                    } else {
+                        println!("invalid index {:?}, max value {:?}", index, ports.len());
+                        None
+                    }
+                }
+                _ => {
+                    println!("failed to parse input {:?}", input);
+                    None
+                }
+            };
+            index.map(|x| *x)
+        };
+
+        if let Some(id) = id {
+            Some(&mut self[&id])
+        } else {
+            None
+        }
+    }
 }
 
 impl MIDIPortMap<MIDIInput> {
