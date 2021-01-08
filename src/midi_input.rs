@@ -74,13 +74,13 @@ impl MIDIPort for MIDIInput {
     }
 
     fn version(&self) -> u32 {
-        todo!()
+        self.endpoint().version()
     }
 
     /// .connected | .disconnected,
     /// indicates if the port's endpoint is connected or not
     fn state(&self) -> MIDIPortDeviceState {
-        todo!()
+        self.endpoint().state()
     }
 
     /// .open | .closed
