@@ -114,17 +114,16 @@ impl MIDIPort for MIDIInput {
         //         ref = MIDIOutputPortCreate(ref: client.ref)
         let mut cb = None;
         std::mem::swap(&mut self.input, &mut cb);
-        // let mut input = self.input.clone();
+
         self.port = Some(self.client.open_input(&self.inner, move |p| {
             if let Some(input) = cb.as_mut() {
-                let mut z = input.lock().unwrap();
-                z.receive(p);
+                if let Ok(mut i) = input.lock() {
+                    i.receive(p)
+                } else {
+                    panic!("failed to lock input")
+                };
             }
         }));
-        // self.client.
-        todo!()
-        // self.inner.
-        // todo!()
     }
 
     /// closes the port
