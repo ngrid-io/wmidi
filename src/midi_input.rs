@@ -12,11 +12,17 @@ pub trait StateChangeObserver {
     // fn port_state_changed(&self, port: impl MIDIPort);
 }
 
+// pub type InputCallback = std::sync::Arc<dyn FnMut() -> () + 'static + Sync + Send>;
+pub trait InputReceiver : Send + Sync {
+    fn receive(&mut self);
+}
+
 pub struct MIDIInput {
     inner: coremidi::Source,
     port: Option<coremidi::InputPort>,
     client: MIDIClient,
     state_change: Option<Box<dyn StateChangeObserver>>,
+    input: Option<std::cell::RefCell<std::sync::Arc<dyn InputReceiver>>>,
 }
 
 impl PartialEq for MIDIInput {
@@ -51,6 +57,7 @@ impl MIDIInput {
             port: None,
             client,
             state_change: None,
+            input: None,
         }
     }
 
@@ -94,6 +101,23 @@ impl MIDIPort for MIDIInput {
 
     /// open the port, is called implicitly when MIDIInput's onMIDIMessage is set or MIDIOutputs' send is called
     fn open(&mut self) {
+        // switch type {
+        //     case .input:
+        //         let `self` = self as! MIDIInput
+        //         ref = MIDIInputPortCreate(ref: client.ref) {
+        //             `self`.onMIDIMessage?($0)
+        //         }
+
+        //         OSAssert(MIDIPortConnectSource(ref, endpoint.ref, nil))
+
+        //     case .output:
+        //         ref = MIDIOutputPortCreate(ref: client.ref)
+        let mut input = self.input.clone();
+        self.port = Some(self.client.open_input(&self.inner, move |p| {
+            if let Some(input) = input.as_mut() {
+
+            }
+        }));
         // self.client.
         todo!()
         // self.inner.

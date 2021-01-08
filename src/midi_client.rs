@@ -21,7 +21,11 @@ impl MIDIClient {
         }
     }
 
-    pub(crate) fn open_input<F>(&mut self, source: coremidi::Source, callback: F)
+    pub(crate) fn open_input<F>(
+        &mut self,
+        source: &coremidi::Source,
+        callback: F,
+    ) -> coremidi::InputPort
     where
         F: FnMut(&coremidi::PacketList) + Send + 'static,
     {
