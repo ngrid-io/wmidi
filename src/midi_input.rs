@@ -9,7 +9,7 @@ pub struct MIDIInput {
     port: Option<coremidi::InputPort>,
     client: MIDIClient,
     state_change: Option<Box<dyn MIDIPortStateChangeObserver>>,
-    input: Option<std::sync::Arc<std::sync::Mutex<dyn MIDIInputObserver>>>,
+    input_observer: Option<std::sync::Arc<std::sync::Mutex<Box<dyn MIDIInputObserver>>>>,
 }
 
 impl PartialEq for MIDIInput {
@@ -44,12 +44,16 @@ impl MIDIInput {
             port: None,
             client,
             state_change: None,
-            input: None,
+            input_observer: None,
         }
     }
 
     fn endpoint<'a>(&'a self) -> MIDIEndpoint<'a> {
         self.inner.endpoint().into()
+    }
+
+    pub fn set_input_observer(&mut self, input_observer: Box<dyn MIDIInputObserver>) {
+        self.input_observer = Some(std::sync::Arc::new(std::sync::Mutex::new(input_observer)));
     }
 }
 
@@ -92,11 +96,11 @@ impl MIDIPort for MIDIInput {
 
     /// open the port, is called implicitly when MIDIInput's onMIDIMessage is set or MIDIOutputs' send is called
     fn open(&mut self) {
+
         if self.connection() == MIDIPortConnectionState::Open {
             return;
         }
-
-        // switch type {
+          // switch type {
         //     case .input:
         //         let `self` = self as! MIDIInput
         //         ref = MIDIInputPortCreate(ref: client.ref) {
@@ -107,12 +111,14 @@ impl MIDIPort for MIDIInput {
 
         //     case .output:
         //         ref = MIDIOutputPortCreate(ref: client.ref)
-        let mut cb = None;
-        std::mem::swap(&mut self.input, &mut cb);
+
+
+        let mut input_observer = None;
+        std::mem::swap(&mut self.input_observer, &mut input_observer);
 
         self.port = Some(self.client.open_input(&self.inner, move |p| {
-            if let Some(input) = cb.as_mut() {
-                if let Ok(mut i) = input.lock() {
+            if let Some(input_observer) = input_observer.as_mut() {
+                if let Ok(mut i) = input_observer.lock() {
                     i.receive(p)
                 } else {
                     panic!("failed to lock input")
