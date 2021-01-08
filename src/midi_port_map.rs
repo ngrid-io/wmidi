@@ -60,6 +60,7 @@ impl<T: MIDIPort> MIDIPortMap<T> {
         if self.is_empty() {
             return None;
         }
+
         println!("Select {:?} ", std::any::type_name::<T>());
 
         let ports: Vec<_> = self.iter().collect();
