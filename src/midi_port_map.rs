@@ -36,7 +36,7 @@ impl MIDIPortMap<MIDIInput> {
     pub(crate) fn new(client: &MIDIClient) -> Self {
         let mut inner = std::collections::HashMap::new();
         for e in coremidi::Sources {
-            let input = MIDIInput::new(e);
+            let input = MIDIInput::new(e, client.clone());
             inner.insert(input.id(), input);
         }
         Self { inner }

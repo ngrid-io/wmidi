@@ -45,9 +45,13 @@ impl std::fmt::Debug for MIDIInput {
 }
 
 impl MIDIInput {
-    pub(crate) fn new(inner: coremidi::Source) -> Self {
-        // Self { inner }
-        todo!()
+    pub(crate) fn new(inner: coremidi::Source, client: MIDIClient) -> Self {
+        Self {
+            inner,
+            port: None,
+            client,
+            state_change: None,
+        }
     }
 
     fn endpoint<'a>(&'a self) -> MIDIEndpoint<'a> {

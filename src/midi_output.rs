@@ -14,8 +14,12 @@ pub struct MIDIOutput {
 
 impl MIDIOutput {
     pub(crate) fn new(inner: coremidi::Destination, client: MIDIClient) -> Self {
-        // Self { inner }
-        todo!()
+        Self {
+            inner,
+            port: None,
+            client,
+            state_change: None,
+        }
     }
 
     fn endpoint<'a>(&'a self) -> MIDIEndpoint<'a> {
