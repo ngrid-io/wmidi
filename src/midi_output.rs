@@ -82,7 +82,11 @@ impl MIDIPort for MIDIOutput {
 
     /// .open | .closed
     fn connection(&self) -> MIDIPortConnectionState {
-        self.endpoint().connection()
+        if self.port.is_none() {
+            MIDIPortConnectionState::Closed
+        } else {
+            MIDIPortConnectionState::Open
+        }
     }
 
     /// open the port, is called implicitly when MIDIInput's onMIDIMessage is set or MIDIOutputs' send is called

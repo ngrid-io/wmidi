@@ -27,9 +27,9 @@ impl<'a> MIDIEndpoint<'a> {
     }
 
     /// .input (for MIDIInput) or .output (for MIDIOutput)
-    pub fn kind(&self) -> MIDIPortKind {
-        todo!()
-    }
+    // pub fn kind(&self) -> MIDIPortKind {
+    //     todo!()
+    // }
 
     pub fn version(&self) -> u32 {
         todo!()
@@ -48,14 +48,14 @@ impl<'a> MIDIEndpoint<'a> {
     }
 
     /// open the port, is called implicitly when MIDIInput's onMIDIMessage is set or MIDIOutputs' send is called
-    pub fn open(&mut self) {
-        todo!()
-    }
+    // pub fn open(&mut self) {
+    //     todo!()
+    // }
 
-    /// closes the port
-    pub fn close(&mut self) {
-        todo!()
-    }
+    // /// closes the port
+    // pub fn close(&mut self) {
+    //     todo!()
+    // }
 
     pub fn flush(&self) {
         let _ = self.inner.flush();
