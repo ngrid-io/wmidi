@@ -13,8 +13,8 @@ pub trait StateChangeObserver {
 }
 
 // pub type InputCallback = std::sync::Arc<dyn FnMut() -> () + 'static + Sync + Send>;
-pub trait InputReceiver : Send + Sync {
-    fn receive(&mut self);
+pub trait InputReceiver: Send + Sync {
+    fn receive(&mut self, packet_list: &coremidi::PacketList);
 }
 
 pub struct MIDIInput {
@@ -22,7 +22,7 @@ pub struct MIDIInput {
     port: Option<coremidi::InputPort>,
     client: MIDIClient,
     state_change: Option<Box<dyn StateChangeObserver>>,
-    input: Option<std::cell::RefCell<std::sync::Arc<dyn InputReceiver>>>,
+    input: Option<std::sync::Arc<std::sync::Mutex<dyn InputReceiver>>>,
 }
 
 impl PartialEq for MIDIInput {
@@ -112,10 +112,13 @@ impl MIDIPort for MIDIInput {
 
         //     case .output:
         //         ref = MIDIOutputPortCreate(ref: client.ref)
-        let mut input = self.input.clone();
+        let mut cb = None;
+        std::mem::swap(&mut self.input, &mut cb);
+        // let mut input = self.input.clone();
         self.port = Some(self.client.open_input(&self.inner, move |p| {
-            if let Some(input) = input.as_mut() {
-
+            if let Some(input) = cb.as_mut() {
+                let mut z = input.lock().unwrap();
+                z.receive(p);
             }
         }));
         // self.client.
