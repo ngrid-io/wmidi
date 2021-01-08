@@ -47,7 +47,7 @@ impl MIDIAccess {
         None
     }
 
-    // /// given an input, tries to find the corresponding output port (non-standard)
+    /// given an input, tries to find the corresponding output port (non-standard)
     pub fn output_for(&self, port: &MIDIInput) -> Option<&MIDIOutput> {
         for (_, v) in self.outputs().iter() {
             if port.name() == v.name() {

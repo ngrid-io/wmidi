@@ -10,5 +10,5 @@ pub use crate::{
     MIDIPortKind,
     MIDIPortMap,
     MIDIPortMapIterator,
-    StateChangeObserver,
+    MIDIPortStateChangeObserver,
 };

@@ -1,6 +1,6 @@
 use crate::{
     MIDIPortID,
-    StateChangeObserver,
+    MIDIPortStateChangeObserver,
 };
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug, Hash)]
@@ -46,5 +46,8 @@ pub trait MIDIPort: Eq + std::hash::Hash + std::fmt::Debug {
     /// closes the port
     fn close(&mut self);
 
-    fn set_on_state_change(&mut self, on_state_change: Option<Box<dyn StateChangeObserver>>);
+    fn set_on_state_change(
+        &mut self,
+        on_state_change: Option<Box<dyn MIDIPortStateChangeObserver>>,
+    );
 }

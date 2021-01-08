@@ -8,7 +8,7 @@ pub struct MIDIInput {
     inner: coremidi::Source,
     port: Option<coremidi::InputPort>,
     client: MIDIClient,
-    state_change: Option<Box<dyn StateChangeObserver>>,
+    state_change: Option<Box<dyn MIDIPortStateChangeObserver>>,
     input: Option<std::sync::Arc<std::sync::Mutex<dyn InputReceiver>>>,
 }
 
@@ -156,7 +156,10 @@ impl MIDIPort for MIDIInput {
         // }
     }
 
-    fn set_on_state_change(&mut self, on_state_change: Option<Box<dyn StateChangeObserver>>) {
+    fn set_on_state_change(
+        &mut self,
+        on_state_change: Option<Box<dyn MIDIPortStateChangeObserver>>,
+    ) {
         self.state_change = on_state_change;
     }
 }

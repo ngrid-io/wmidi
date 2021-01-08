@@ -2,14 +2,13 @@ use crate::{
     prelude::*,
     MIDIClient,
     MIDIEndpoint,
-    StateChangeObserver,
 };
 
 pub struct MIDIOutput {
     inner: coremidi::Destination,
     port: Option<coremidi::OutputPort>,
     client: MIDIClient,
-    state_change: Option<Box<dyn StateChangeObserver>>,
+    state_change: Option<Box<dyn MIDIPortStateChangeObserver>>,
 }
 
 impl MIDIOutput {
@@ -117,7 +116,10 @@ impl MIDIPort for MIDIOutput {
         std::mem::swap(&mut self.state_change, &mut state_change);
     }
 
-    fn set_on_state_change(&mut self, on_state_change: Option<Box<dyn StateChangeObserver>>) {
+    fn set_on_state_change(
+        &mut self,
+        on_state_change: Option<Box<dyn MIDIPortStateChangeObserver>>,
+    ) {
         self.state_change = on_state_change;
     }
 }
