@@ -82,7 +82,7 @@ impl MIDIPort for MIDIOutput {
 
     /// .open | .closed
     fn connection(&self) -> MIDIPortConnectionState {
-        todo!()
+        self.endpoint().connection()
     }
 
     /// open the port, is called implicitly when MIDIInput's onMIDIMessage is set or MIDIOutputs' send is called
