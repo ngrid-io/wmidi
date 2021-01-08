@@ -6,8 +6,8 @@ use crate::{
 
 // pub type OnInputStateChange = dyn Fn(&MIDIInput) -> () + 'static ;
 pub trait StateChangeObserver {
-    fn input_state_changed(&self, input: &MIDIInput);
-    fn output_state_changed(&self, output: &MIDIOutput);
+    fn input_state_changed(&mut self, input: &MIDIInput);
+    fn output_state_changed(&mut self, output: &MIDIOutput);
 
     // fn port_state_changed(&self, port: impl MIDIPort);
 }
@@ -110,9 +110,14 @@ impl MIDIPort for MIDIInput {
             let _ = port.disconnect_source(&self.inner);
         }
         self.port = None;
-        if let Some(f) = self.state_change.as_ref() {
+
+        let mut state_change = None;
+        std::mem::swap(&mut self.state_change, &mut state_change);
+
+        if let Some(f) = state_change.as_mut() {
             f.input_state_changed(&self);
         }
+        std::mem::swap(&mut self.state_change, &mut state_change);
         // self.on_state_change(self);
 
         //     guard connection != .closed else { return }

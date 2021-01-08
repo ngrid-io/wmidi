@@ -98,9 +98,13 @@ impl MIDIPort for MIDIOutput {
         self.endpoint().flush();
         self.port = None;
 
-        if let Some(f) = self.state_change.as_ref() {
+        let mut state_change = None;
+        std::mem::swap(&mut self.state_change, &mut state_change);
+
+        if let Some(f) = state_change.as_mut() {
             f.output_state_changed(&self);
         }
+        std::mem::swap(&mut self.state_change, &mut state_change);
     }
 
     fn set_on_state_change(&mut self, on_state_change: Option<Box<dyn StateChangeObserver>>) {
