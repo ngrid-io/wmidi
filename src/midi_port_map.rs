@@ -10,19 +10,30 @@ fn get_line() -> String {
     input.trim().to_string()
 }
 
+#[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
+pub struct MIDIPortID {
+    inner: u32,
+}
+
+impl MIDIPortID {
+    pub fn new(inner: u32) -> Self {
+        Self { inner }
+    }
+}
+
 pub struct MIDIPortMapIterator<'a, T: MIDIPort> {
-    inner: std::collections::hash_map::Iter<'a, u32, T>,
+    inner: std::collections::hash_map::Iter<'a, MIDIPortID, T>,
 }
 
 impl<'a, T: MIDIPort> Iterator for MIDIPortMapIterator<'a, T> {
-    type Item = (&'a u32, &'a T);
+    type Item = (&'a MIDIPortID, &'a T);
     fn next(&mut self) -> Option<Self::Item> {
         self.inner.next()
     }
 }
 
 pub struct MIDIPortMap<T: MIDIPort> {
-    inner: std::collections::HashMap<u32, T>,
+    inner: std::collections::HashMap<MIDIPortID, T>,
 }
 
 impl<T: MIDIPort> MIDIPortMap<T> {
@@ -70,7 +81,7 @@ impl<T: MIDIPort> MIDIPortMap<T> {
             _ => {
                 println!("failed to parse input {:?}", input);
                 None
-            },
+            }
         }
     }
 }
@@ -97,9 +108,9 @@ impl MIDIPortMap<MIDIOutput> {
     }
 }
 
-impl<T: MIDIPort> std::ops::Index<&u32> for MIDIPortMap<T> {
+impl<T: MIDIPort> std::ops::Index<&MIDIPortID> for MIDIPortMap<T> {
     type Output = T;
-    fn index(&self, index: &u32) -> &Self::Output {
+    fn index(&self, index: &MIDIPortID) -> &Self::Output {
         &self.inner[index]
     }
 }

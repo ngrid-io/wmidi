@@ -1,4 +1,4 @@
-use crate::StateChangeObserver;
+use crate::{MIDIPortID, StateChangeObserver};
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum MIDIPortKind {
@@ -21,7 +21,7 @@ pub enum MIDIPortConnectionState {
 }
 
 pub trait MIDIPort: Eq + std::hash::Hash + std::fmt::Debug {
-    fn id(&self) -> u32;
+    fn id(&self) -> MIDIPortID;
     fn manufacturer(&self) -> String;
 
     fn name(&self) -> String;

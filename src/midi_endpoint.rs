@@ -11,10 +11,10 @@ impl<'a> From<&'a coremidi::Endpoint> for MIDIEndpoint<'a> {
 }
 
 impl<'a> MIDIEndpoint<'a> {
-    pub fn id(&self) -> u32 {
+    pub fn id(&self) -> MIDIPortID {
         // self.inner.set_property_integer(coremidi::kMIDIPropertyUniqueID, value);
         // self.inner.get_property_integer(coremidi::kMIDIPropertyUniqueID)
-        self.inner.unique_id().unwrap()
+        MIDIPortID::new(self.inner.unique_id().unwrap())
     }
 
     pub fn manufacturer(&self) -> String {

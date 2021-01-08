@@ -59,7 +59,7 @@ impl MIDIOutput {
 }
 
 impl MIDIPort for MIDIOutput {
-    fn id(&self) -> u32 {
+    fn id(&self) -> MIDIPortID {
         self.endpoint().id()
     }
 

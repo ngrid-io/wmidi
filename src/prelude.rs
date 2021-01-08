@@ -6,6 +6,7 @@ pub use crate::{
     MIDIPort,
     MIDIPortConnectionState,
     MIDIPortDeviceState,
+    MIDIPortID,
     MIDIPortKind,
     MIDIPortMap,
     MIDIPortMapIterator,
