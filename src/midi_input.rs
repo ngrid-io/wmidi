@@ -9,7 +9,7 @@ pub struct MIDIInput {
     port: Option<coremidi::InputPort>,
     client: MIDIClient,
     state_change: Option<Box<dyn MIDIPortStateChangeObserver>>,
-    input: Option<std::sync::Arc<std::sync::Mutex<dyn InputReceiver>>>,
+    input: Option<std::sync::Arc<std::sync::Mutex<dyn MIDIInputObserver>>>,
 }
 
 impl PartialEq for MIDIInput {

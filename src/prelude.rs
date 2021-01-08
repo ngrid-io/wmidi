@@ -1,7 +1,7 @@
 pub use crate::{
-    InputReceiver,
     MIDIAccess,
     MIDIInput,
+    MIDIInputObserver,
     MIDIOutput,
     MIDIPort,
     MIDIPortConnectionState,
