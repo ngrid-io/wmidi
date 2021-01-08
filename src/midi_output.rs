@@ -1,14 +1,21 @@
 use crate::{
     prelude::*,
+    MIDIClient,
     MIDIEndpoint,
+    StateChangeObserver,
 };
+
 pub struct MIDIOutput {
     inner: coremidi::Destination,
+    port: Option<coremidi::OutputPort>,
+    client: MIDIClient,
+    state_change: Box<dyn StateChangeObserver>,
 }
 
 impl MIDIOutput {
-    pub(crate) fn new(inner: coremidi::Destination) -> Self {
-        Self { inner }
+    pub(crate) fn new(inner: coremidi::Destination, client: MIDIClient) -> Self {
+        // Self { inner }
+        todo!()
     }
 
     fn endpoint<'a>(&'a self) -> MIDIEndpoint<'a> {
@@ -81,6 +88,11 @@ impl MIDIPort for MIDIOutput {
 
     /// closes the port
     fn close(&mut self) {
-        todo!()
+        if self.connection() == MIDIPortConnectionState::Open {
+            return;
+        }
+        self.endpoint().flush();
+        self.port = None;
+        self.state_change.output_state_changed(self);
     }
 }

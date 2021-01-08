@@ -15,7 +15,9 @@ impl MIDIClient {
         F: FnMut(&coremidi::Notification) + Send + 'static,
     {
         Self {
-            inner: std::rc::Rc::new(coremidi::Client::new_with_notifications(name, callback).unwrap()),
+            inner: std::rc::Rc::new(
+                coremidi::Client::new_with_notifications(name, callback).unwrap(),
+            ),
         }
     }
 

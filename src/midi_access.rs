@@ -39,7 +39,7 @@ impl MIDIAccess {
     }
 
     pub fn restart(&self) {
-        coremidi::restart();
+        let _ = coremidi::restart();
     }
     // fn insert(&self,)
 
