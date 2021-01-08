@@ -10,7 +10,6 @@ pub enum MIDIPortKind {
 }
 
 // impl From<coremidi::
-
 #[derive(Clone, Copy, PartialEq, Eq, Debug, Hash)]
 pub enum MIDIPortDeviceState {
     Disconnected,
