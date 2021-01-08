@@ -20,3 +20,6 @@ pub use midi_port_map::*;
 
 mod midi_port;
 pub use midi_port::*;
+
+mod traits;
+pub use traits::*;

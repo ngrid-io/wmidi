@@ -4,19 +4,6 @@ use crate::{
     MIDIEndpoint,
 };
 
-// pub type OnInputStateChange = dyn Fn(&MIDIInput) -> () + 'static ;
-pub trait StateChangeObserver {
-    fn input_state_changed(&mut self, input: &MIDIInput);
-    fn output_state_changed(&mut self, output: &MIDIOutput);
-
-    // fn port_state_changed(&self, port: impl MIDIPort);
-}
-
-// pub type InputCallback = std::sync::Arc<dyn FnMut() -> () + 'static + Sync + Send>;
-pub trait InputReceiver: Send + Sync {
-    fn receive(&mut self, packet_list: &coremidi::PacketList);
-}
-
 pub struct MIDIInput {
     inner: coremidi::Source,
     port: Option<coremidi::InputPort>,
@@ -101,6 +88,10 @@ impl MIDIPort for MIDIInput {
 
     /// open the port, is called implicitly when MIDIInput's onMIDIMessage is set or MIDIOutputs' send is called
     fn open(&mut self) {
+        if self.connection() == MIDIPortConnectionState::Open {
+            return;
+        }
+
         // switch type {
         //     case .input:
         //         let `self` = self as! MIDIInput

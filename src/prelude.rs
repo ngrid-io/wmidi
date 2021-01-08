@@ -1,4 +1,5 @@
 pub use crate::{
+    InputReceiver,
     MIDIAccess,
     MIDIInput,
     MIDIOutput,
@@ -8,4 +9,5 @@ pub use crate::{
     MIDIPortKind,
     MIDIPortMap,
     MIDIPortMapIterator,
+    StateChangeObserver,
 };
