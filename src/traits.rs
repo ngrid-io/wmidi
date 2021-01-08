@@ -7,5 +7,5 @@ pub trait MIDIPortStateChangeObserver {
 
 // pub type InputCallback = std::sync::Arc<dyn FnMut() -> () + 'static + Sync + Send>;
 pub trait MIDIInputObserver: Send + Sync {
-    fn receive(&mut self, packet_list: &coremidi::PacketList);
+    fn receive(&mut self, packet_list: &MIDIPacketList);
 }

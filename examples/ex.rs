@@ -1,5 +1,12 @@
 use wmidi::prelude::*;
 
+struct MIDIReceiver {}
+
+impl MIDIInputObserver for MIDIReceiver {
+    fn receive(&mut self, packet_list: &MIDIPacketList) {
+        todo!()
+    }
+}
 fn main() {
     let access = MIDIAccess::new("wmidi");
 

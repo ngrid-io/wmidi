@@ -15,6 +15,12 @@ pub use midi_input::*;
 mod midi_output;
 pub use midi_output::*;
 
+mod midi_packet_list;
+pub use midi_packet_list::*;
+
+mod midi_packet;
+pub use midi_packet::*;
+
 mod midi_port_map;
 pub use midi_port_map::*;
 
