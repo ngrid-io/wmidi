@@ -43,9 +43,9 @@ impl<'a> MIDIEndpoint<'a> {
     }
 
     /// .open | .closed
-    pub fn connection(&self) -> MIDIPortConnectionState {
-        todo!()
-    }
+    // pub fn connection(&self) -> MIDIPortConnectionState {
+    //     todo!()
+    // }
 
     /// open the port, is called implicitly when MIDIInput's onMIDIMessage is set or MIDIOutputs' send is called
     // pub fn open(&mut self) {

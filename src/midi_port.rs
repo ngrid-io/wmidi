@@ -20,7 +20,7 @@ pub enum MIDIPortConnectionState {
     Closed,
 }
 
-pub trait MIDIPort: Eq + std::hash::Hash {
+pub trait MIDIPort: Eq + std::hash::Hash + std::fmt::Debug {
     fn id(&self) -> u32;
     fn manufacturer(&self) -> String;
 

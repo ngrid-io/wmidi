@@ -52,6 +52,12 @@ impl std::fmt::Debug for MIDIOutput {
     }
 }
 
+impl MIDIOutput {
+    pub fn clear(&mut self) {
+        self.endpoint().flush();
+    }
+}
+
 impl MIDIPort for MIDIOutput {
     fn id(&self) -> u32 {
         self.endpoint().id()
