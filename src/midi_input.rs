@@ -117,8 +117,9 @@ impl MIDIPort for MIDIInput {
 
         self.port = Some(self.client.open_input(&self.inner, move |p| {
             if let Some(input_observer) = input_observer.as_mut() {
-                if let Ok(mut i) = input_observer.lock() {
-                    i.receive(&MIDIPacketList { inner: p })
+                if let Ok(mut input_observer) = input_observer.lock() {
+                    // i.receive(&MIDIPacketList { inner: p })
+                    input_observer.receive(p);
                 } else {
                     panic!("failed to lock input")
                 };

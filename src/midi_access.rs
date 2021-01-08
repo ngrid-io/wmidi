@@ -38,6 +38,14 @@ impl MIDIAccess {
         &self.outputs
     }
 
+    // pub fn inputs_mut(&mut self) -> &mut MIDIPortMap<MIDIInput> {
+    //     &mut self.inputs
+    // }
+
+    // pub fn outputs_mut(&mut self) -> &mut MIDIPortMap<MIDIOutput> {
+    //     &mut self.outputs
+    // }
+
     pub fn input_for(&self, port: &MIDIOutput) -> Option<&MIDIInput> {
         for (_, v) in self.inputs().iter() {
             if port.name() == v.name() {

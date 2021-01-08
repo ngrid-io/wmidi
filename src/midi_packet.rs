@@ -1,1 +1,3 @@
-pub struct MIDIPacket {}
+pub struct MIDIPacket {
+    inner: coremidi::Packet,
+}

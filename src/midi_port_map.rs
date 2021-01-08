@@ -115,3 +115,9 @@ impl<T: MIDIPort> std::ops::Index<&MIDIPortID> for MIDIPortMap<T> {
         &self.inner[index]
     }
 }
+
+impl<T: MIDIPort> std::ops::IndexMut<&MIDIPortID> for MIDIPortMap<T> {
+    fn index_mut(&mut self, index: &MIDIPortID) -> &mut Self::Output {
+        self.inner.get_mut(index).unwrap()
+    }
+}

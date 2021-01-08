@@ -27,5 +27,8 @@ pub use midi_port_map::*;
 mod midi_port;
 pub use midi_port::*;
 
+mod midi_timestamp;
+pub use midi_timestamp::*;
+
 mod traits;
 pub use traits::*;
